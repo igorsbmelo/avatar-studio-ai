@@ -1,3 +1,7 @@
-export default function VideosPage() {
-  return <main style={{ padding: 40 }}><h1>Vídeos</h1><p style={{ color: "#9298aa" }}>Criação e biblioteca de vídeos — próxima etapa.</p></main>;
-}
+"use client";
+import Link from "next/link";
+const videos=[
+["Dança Viral","15s • 9:16","https://videos.pexels.com/video-files/7571002/7571002-uhd_2160_4096_25fps.mp4"],
+["Fashion em Movimento","13s • 9:16","https://videos.pexels.com/video-files/9512048/9512048-uhd_2160_4096_25fps.mp4"],
+["Performance","29s • 9:16","https://videos.pexels.com/video-files/7571002/7571002-uhd_2160_4096_25fps.mp4"]];
+export default function Videos(){return <main className="library-shell"><nav className="profile-nav"><Link className="brand-mark" href="/"><span className="brand-icon">✦</span> AVATAR STUDIO <b>AI</b></Link><div><Link href="/studio">Meu perfil</Link><Link href="/avatars">Avatares</Link></div></nav><section className="library-head"><div className="section-kicker">🎬 BIBLIOTECA DE MOVIMENTO</div><h1>Veja antes de escolher.</h1><p>Os vídeos agora são reproduzidos em movimento: dança, caminhada, performance e ação em formato vertical.</p></section><section className="video-library-grid">{videos.map(([title,meta,src])=><article className="video-card video-motion" key={title}><video src={src} autoPlay muted loop playsInline preload="metadata"/><div className="video-overlay"><span className="play">▶</span><div><b>{title}</b><small>{meta} • MOVIMENTO</small></div></div></article>)}</section></main>}
