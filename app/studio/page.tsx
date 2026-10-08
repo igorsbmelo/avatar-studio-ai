@@ -40,5 +40,6 @@ export default function Studio(){
     <section className="profile-card"><div className="profile-card-head"><div><div className="section-kicker">PAGAMENTOS</div><h3>Histórico</h3></div><span className="muted">Mercado Pago</span></div>{payments.length?<div className="payment-list">{payments.slice(0,3).map(p=><div className="payment-row" key={p.id}><span>{p.product_type==="subscription"?"💳":"🎬"}</span><b>R$ {(p.amount_cents/100).toFixed(2)}</b><small>{p.status} • {p.paid_at?new Date(p.paid_at).toLocaleDateString("pt-BR"):"pendente"}</small></div>)}</div>:<div className="empty-small">Nenhum pagamento ainda.</div>}</section></div>
    </section>
   </section>
- </section>
+  </section>
+ </main>
 }
