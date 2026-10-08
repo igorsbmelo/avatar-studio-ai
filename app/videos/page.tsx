@@ -41,7 +41,7 @@ function MotionCard({item}:{item:string[]}){
 
 export default function Videos(){
  const [filter,setFilter]=useState("Todos");
- const filters=["Todos","🔥 Viral","💃 Dança","🚗 Carros","✈️ Viagens","🏙️ Cidades","🌎 Random"];
+ const filters=["Todos","🔥 Viral","💃 Dança","🚗 Carros","✈️ Viagens","🏙️ Cidades","🌎 Random"]; const keys=["","VIRAL","DANÇA","CARRO","VIAGEM","CIDADE","RANDOM"];
  return <main className="library-shell">
   <nav className="profile-nav"><Link className="brand-mark" href="/"><span className="brand-icon">✦</span> AVATAR STUDIO <b>AI</b></Link><div><Link href="/studio">Meu perfil</Link><Link href="/avatars">Avatares</Link></div></nav>
   <section className="library-head">
@@ -51,6 +51,6 @@ export default function Videos(){
    <div className="filter-pills">{filters.map(f=><button key={f} className={filter===f?"active":""} onClick={()=>setFilter(f)}>{f}</button>)}</div>
    <div className="video-audio-note">🔊 <b>Som:</b> os navegadores bloqueiam autoplay com áudio. O vídeo começa em movimento e você toca no botão 🔊 para ouvir o som original.</div>
   </section>
-  <section className="video-library-grid">{videos.map(v=><MotionCard item={v} key={v[0]}/>)}</section>
+  <section className="video-library-grid">{videos.filter(v=>!filter || filter==="Todos" || v[1].includes(keys[filters.indexOf(filter)])).map(v=><MotionCard item={v} key={v[0]}/>)}</section>
  </main>
 }
