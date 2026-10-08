@@ -33,7 +33,7 @@ const videos = [
 export default function Home() {
   return <main className="landing">
     <nav className="landing-nav">
-      <Link className="brand-mark" href="/"><span className="brand-icon">✦</span> AVATAR STUDIO <b>AI</b></Link>
+      <Link className="brand-mark brand-logo-link" href="/"><img src="/logo.svg" alt="Avatar Studio AI"/></Link>
       <div className="nav-links"><a href="#avatares">Avatares</a><a href="#videos">Vídeos</a><a href="#como">Como funciona</a><Link href="/login">Entrar</Link><Link className="nav-cta" href="/cadastro">Começar grátis</Link></div>
     </nav>
 
@@ -68,9 +68,24 @@ export default function Home() {
       <div className="video-showcase">{videos.map(v=><article className="video-card video-motion" key={v.title}><video src={v.src} autoPlay muted loop playsInline preload="metadata"/><div className="video-overlay"><span className="play">▶</span><div><b>{v.title}</b><small>{v.meta} • MOVIMENTO</small></div></div></article>)}</div>
     </section>
 
-    <section id="como" className="steps-section"><div className="section-kicker">COMO FUNCIONA</div><h2>Você cria. A IA faz o resto.</h2><div className="steps"><div><b>01</b><span>📸</span><h3>Escolha seu avatar</h3><p>Use um personagem pronto ou descreva o seu.</p></div><div><b>02</b><span>✍️</span><h3>Escreva a ideia</h3><p>Roteiro, fala, dança, anúncio ou história.</p></div><div><b>03</b><span>🎬</span><h3>Gere o vídeo</h3><p>Escolha movimento, voz, formato e estilo.</p></div></div></section>
+<section className="app-showcase">
+      <div className="app-showcase-copy">
+        <div className="section-kicker">📱 SEU STUDIO EM QUALQUER LUGAR</div>
+        <h2>Crie. Personalize. <span>Compartilhe.</span></h2>
+        <p>Uma experiência pensada para celular, tablet e desktop. Crie seu avatar, escolha uma cena, gere seu vídeo e acompanhe tudo no seu perfil.</p>
+        <div className="app-points"><div><b>✦</b><span><strong>Avatar em destaque</strong><small>Veja seu personagem e suas criações em um só lugar.</small></span></div><div><b>▶</b><span><strong>Vídeos virais</strong><small>Dança, viagens, carros, aviões e ideias aleatórias.</small></span></div><div><b>♢</b><span><strong>Seu painel</strong><small>Avatares, vídeos, créditos, plano e pagamentos.</small></span></div></div>
+        <div className="store-buttons"><span> App Store</span><span>▶ Google Play</span></div>
+      </div>
+      <div className="device-stage">
+        <div className="phone phone-left"><div className="phone-notch"></div><div className="phone-screen"><div className="mock-top">‹ <b>Seu Avatar</b>•••</div><div className="mock-avatar"><img src="https://images.unsplash.com/photo-1764698072833-dd137d82bbba?auto=format&fit=crop&w=800&q=88" alt="Avatar no celular"/><div className="mock-play">▶</div></div><b className="mock-title">Transforme suas ideias em vídeos incríveis.</b><div className="mock-thumbs"><img src="https://images.unsplash.com/photo-1764698072833-dd137d82bbba?auto=format&fit=crop&w=800&q=88" alt=""/><img src="https://images.unsplash.com/photo-1682310934014-47fbe9d0f3d7?auto=format&fit=crop&w=800&q=88" alt=""/><img src="https://images.unsplash.com/photo-1664893875908-a1e56db71082?auto=format&fit=crop&w=800&q=88" alt=""/></div><div className="mock-bottom">⌂　♙　▶　▣　♙</div></div></div>
+        <div className="phone phone-center"><div className="phone-notch"></div><div className="phone-screen"><div className="mock-top">‹ <b>Seu Avatar</b>•••</div><div className="mock-avatar tall"><img src="https://images.unsplash.com/photo-1682310934014-47fbe9d0f3d7?auto=format&fit=crop&w=800&q=88" alt="Avatar no celular"/><div className="mock-play">▶</div></div><div className="mock-caption">Crie seu próximo vídeo viral ✦</div><div className="mock-actions"><span>♡</span><span>◉</span><span>↗</span></div><div className="mock-bottom">⌂　♙　▶　▣　♙</div></div></div>
+        <div className="tablet-mock"><div className="tablet-screen"><div className="dash-top"><b>Olá, Criador!</b><span>✦ Plano Pro</span></div><div className="dash-stats"><span>∞<small>Vídeos disponíveis</small></span><span>5<small>Avatares</small></span><span>12.4 GB<small>Espaço</small></span></div><div className="dash-cta"><b>Crie vídeos que conectam.</b><button>Criar vídeo</button></div><b className="dash-sub">Seus avatares</b><div className="dash-avatars"><img src="https://images.unsplash.com/photo-1764698072833-dd137d82bbba?auto=format&fit=crop&w=800&q=88" alt=""/><img src="https://images.unsplash.com/photo-1682310934014-47fbe9d0f3d7?auto=format&fit=crop&w=800&q=88" alt=""/><img src="https://images.unsplash.com/photo-1664893875908-a1e56db71082?auto=format&fit=crop&w=800&q=88" alt=""/><img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?auto=format&fit=crop&w=800&q=88" alt=""/></div></div></div>
+      </div>
+    </section>
+
+        <section id="como" className="steps-section"><div className="section-kicker">COMO FUNCIONA</div><h2>Você cria. A IA faz o resto.</h2><div className="steps"><div><b>01</b><span>📸</span><h3>Escolha seu avatar</h3><p>Use um personagem pronto ou descreva o seu.</p></div><div><b>02</b><span>✍️</span><h3>Escreva a ideia</h3><p>Roteiro, fala, dança, anúncio ou história.</p></div><div><b>03</b><span>🎬</span><h3>Gere o vídeo</h3><p>Escolha movimento, voz, formato e estilo.</p></div></div></section>
 
     <section className="final-cta"><div><div className="section-kicker">PRONTO PARA CRIAR?</div><h2>Seu próximo personagem começa agora.</h2><p>Crie sua conta gratuitamente e entre no Avatar Studio.</p></div><Link className="hero-primary" href="/cadastro">Começar grátis →</Link></section>
-    <footer className="landing-footer"><span>✦ AVATAR STUDIO AI</span><span>Seu avatar. Seus vídeos. Sem limites.</span><span>© 2026</span></footer>
+    <footer className="landing-footer"><img src="/logo.svg" alt="Avatar Studio AI" /><span>Seu avatar. Seus vídeos. Sem limites.</span><span>© 2026</span></footer>
   </main>;
 }
