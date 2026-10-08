@@ -3,6 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "../../lib/supabase/browser";
 
+const visualImages = [
+  "https://images.unsplash.com/photo-1764698072833-dd137d82bbba?auto=format&fit=crop&w=900&q=85",
+  "https://images.unsplash.com/photo-1650666505870-022aab8b1bce?auto=format&fit=crop&w=900&q=85",
+  "https://images.unsplash.com/photo-1764698072833-dd137d82bbba?auto=format&fit=crop&w=900&q=85",
+];
+
 function timeout<T>(promise: Promise<T>, ms: number) {
   return Promise.race([
     promise,
@@ -21,6 +27,7 @@ export default function Login() {
     if (loading) return;
     setLoading(true);
     setMsg("");
+
     try {
       const { error } = await timeout(
         createClient().auth.signInWithPassword({ email: email.trim(), password }),
@@ -38,24 +45,30 @@ export default function Login() {
   return (
     <main className="form-shell">
       <section className="signup-visual">
-        <Link className="brand-mark" href="/"><span className="brand-icon">✦</span> AVATAR STUDIO <b>AI</b></Link>
+        <Link className="brand-mark" href="/">
+          <span className="brand-icon">✦</span> AVATAR STUDIO <b>AI</b>
+        </Link>
         <h2>Entre no seu <span>Studio.</span></h2>
         <p>Seus avatares, roteiros, vídeos e criações ficam reunidos em um só lugar.</p>
         <div className="signup-mini-grid">
-          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=85" alt="Avatar exemplo 1"/>
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=700&q=85" alt="Avatar exemplo 2"/>
-          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=700&q=85" alt="Avatar exemplo 3"/>
+          {visualImages.map((src, i) => (
+            <img key={`${src}-${i}`} src={src} alt={`Avatar exemplo ${i + 1}`} />
+          ))}
         </div>
       </section>
+
       <section className="signup-form-side">
         <form className="form-card" onSubmit={submit}>
           <Link className="back-link" href="/">← Voltar para o início</Link>
           <h1>Entrar</h1>
           <p className="sub">Acesse seu Avatar Studio.</p>
+
           <label className="input-label" htmlFor="login-email">E-mail</label>
           <input id="login-email" className="input" type="email" autoComplete="email" placeholder="voce@email.com" value={email} onChange={e => setEmail(e.target.value)} required />
+
           <label className="input-label" htmlFor="login-password">Senha</label>
           <input id="login-password" className="input" type="password" autoComplete="current-password" placeholder="Sua senha" value={password} onChange={e => setPassword(e.target.value)} required />
+
           <button className="button" type="submit" disabled={loading}>{loading ? "Entrando…" : "Entrar →"}</button>
           {msg && <p className="form-msg form-error">{msg}</p>}
           <p className="sub">Ainda não tem conta? <Link href="/cadastro">Criar conta grátis</Link></p>
