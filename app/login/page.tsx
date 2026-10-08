@@ -5,7 +5,7 @@ import { createClient } from "../../lib/supabase/browser";
 
 const visualImages=["https://images.unsplash.com/photo-1764698072833-dd137d82bbba?auto=format&fit=crop&w=900&q=85","https://images.unsplash.com/photo-1650666505870-022aab8b1bce?auto=format&fit=crop&w=900&q=85","https://images.unsplash.com/photo-1664893875908-a1e56db71082?auto=format&fit=crop&w=900&q=85"];
 
-function timeout<T>(promise:Promise<T>,ms:number){return Promise.race([promise,new Promise<never>((_,reject)=>setTimeout(()=>reject(new Error("A conexão demorou mais que o esperado. Tente novamente.")),ms))])}
+function timeout<T>(promise:Promise<T>,ms:number):Promise<T>{return Promise.race([promise,new Promise<never>((_,reject)=>setTimeout(()=>reject(new Error("A conexão demorou mais que o esperado. Tente novamente.")),ms))]) as Promise<T>;}
 
 export default function Login(){
  const [email,setEmail]=useState(""),[password,setPassword]=useState(""),[msg,setMsg]=useState(""),[loading,setLoading]=useState(false);
