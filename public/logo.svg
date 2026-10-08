@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="title desc"><title id="title">Avatar Studio AI</title><desc id="desc">Logo Avatar Studio AI</desc><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00D4FF"/><stop offset=".48" stop-color="#8A2BE2"/><stop offset=".72" stop-color="#FF2DBB"/><stop offset="1" stop-color="#FF8A00"/></linearGradient><linearGradient id="t" x1="0" x2="1"><stop stop-color="#00D4FF"/><stop offset=".55" stop-color="#8A2BE2"/><stop offset="1" stop-color="#FF8A00"/></linearGradient></defs><rect width="720" height="260" fill="none"/><g transform="translate(12 15)"><path d="M118 8c-32 4-64 27-82 57-18 30-17 70 2 99 19 30 53 49 88 48l81-1c18 0 31-20 21-36l-27-43 28-48c9-16-3-36-21-37z" fill="url(#g)"/><path d="M72 74c18-30 47-43 77-31 27 11 43 39 39 67-5 35-36 61-72 59-33-2-58-30-56-63 1-12 5-23 12-32z" fill="#07070B"/><path d="M84 72c11-16 27-24 47-24 17 0 30 5 42 16-4 8-10 14-18 18-17-10-35-10-52-1-7-2-13-5-19-9z" fill="#11152A"/><ellipse cx="111" cy="105" rx="8" ry="10" fill="#fff"/><ellipse cx="145" cy="105" rx="8" ry="10" fill="#fff"/><path d="M108 139c14 9 30 9 44 0" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M205 48l7 18 18 7-18 7-7 18-7-18-18-7 18-7z" fill="#FFD600"/></g><text x="285" y="112" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="900" letter-spacing="2" fill="#fff">AVATAR</text><text x="285" y="190" font-family="Arial,Helvetica,sans-serif" font-size="68" font-weight="900" letter-spacing="2" fill="url(#t)">STUDIO <tspan fill="#FF8A00">AI</tspan></text><text x="287" y="225" font-family="Arial,Helvetica,sans-serif" font-size="14" letter-spacing="5" fill="#fff">SEU AVATAR. SEUS VÍDEOS. SEM LIMITES.</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" role="img" aria-labelledby="title desc">
+<title id="title">Avatar Studio AI</title><desc id="desc">Avatar Studio AI — Seu avatar. Seus vídeos. Sem limites.</desc>
+<defs>
+ <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00D4FF"/><stop offset=".45" stop-color="#473BFF"/><stop offset=".7" stop-color="#FF2DBB"/><stop offset="1" stop-color="#FF8A00"/></linearGradient>
+ <linearGradient id="skin" x1=".1" y1=".1" x2=".9" y2=".9"><stop stop-color="#111A35"/><stop offset=".45" stop-color="#4332A8"/><stop offset=".75" stop-color="#FF7B4B"/><stop offset="1" stop-color="#FFB13B"/></linearGradient>
+ <linearGradient id="word" x1="0" x2="1"><stop stop-color="#00D4FF"/><stop offset=".5" stop-color="#FF2DBB"/><stop offset="1" stop-color="#FF8A00"/></linearGradient>
+ <filter id="shadow"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<g transform="translate(22 24)">
+ <ellipse cx="158" cy="150" rx="126" ry="132" fill="#000" opacity=".35" filter="url(#shadow)"/>
+ <path d="M205 16c-55-25-119-12-158 31-42 47-45 116-8 166 34 47 90 67 145 51l72-22c22-7 30-35 13-51l-42-40 43-67c12-19 0-46-22-55z" fill="url(#ring)"/>
+ <path d="M112 55c37-25 83-11 103 20 24 37 7 91-29 111-27 15-63 10-87-9-25-21-35-55-25-83 7-18 19-30 38-39z" fill="#080A11"/>
+ <path d="M115 60c28-22 65-22 88-2-2 19-11 33-26 42-20-10-40-8-59 3-12-8-15-24-3-43z" fill="#11172C"/>
+ <path d="M143 84c20-11 43-8 57 8 11 13 13 31 7 48-7 18-20 33-39 41-12-4-22-11-29-21 7-11 11-24 11-38 0-15-3-27-7-38z" fill="url(#skin)"/>
+ <ellipse cx="158" cy="111" rx="7" ry="9" fill="#fff"/>
+ <ellipse cx="188" cy="108" rx="7" ry="9" fill="#fff"/>
+ <path d="M156 144c14 8 29 7 40-2" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+ <path d="M235 38l8 19 20 8-20 8-8 19-8-19-20-8 20-8z" fill="#FFD600"/>
+</g>
+<text x="340" y="142" font-family="Arial,Helvetica,sans-serif" font-size="102" font-weight="900" letter-spacing="2" fill="#fff">AVATAR</text>
+<text x="340" y="236" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="900" letter-spacing="2" fill="url(#word)">STUDIO <tspan fill="#FF8A00">AI</tspan></text>
+<text x="343" y="278" font-family="Arial,Helvetica,sans-serif" font-size="18" letter-spacing="6" fill="#fff">SEU AVATAR. SEUS VÍDEOS. SEM LIMITES.</text>
+</svg>
