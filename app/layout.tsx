@@ -3,15 +3,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Avatar Studio AI",
-  description: "Crie avatares e vídeos com inteligência artificial.",
+  description: "Crie seu avatar. Crie seus vídeos.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="pt-BR">
-      <body>{children}</body>
-    </html>
-  );
+export default function RootLayout({children}:{children:React.ReactNode}){
+  return <html lang="pt-BR"><body>{children}</body></html>;
 }
