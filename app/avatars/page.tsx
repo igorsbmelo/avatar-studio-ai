@@ -1,3 +1,9 @@
-export default function AvatarsPage() {
-  return <main style={{ padding: 40 }}><h1>Avatares</h1><p style={{ color: "#9298aa" }}>Biblioteca e criação de avatares — próxima etapa.</p></main>;
-}
+import Link from "next/link";
+const avatars=[
+["O Gigante Bowl Cut","HOMEM • FORTE • PLATINUM","https://images.unsplash.com/photo-1764698072833-dd137d82bbba?auto=format&fit=crop&w=800&q=85"],
+["A Rainha Geométrica","MULHER • CURTO • ROSA","https://images.unsplash.com/photo-1682310934014-47fbe9d0f3d7?auto=format&fit=crop&w=800&q=85"],
+["O Tio Cyber","HOMEM • CURTO • AZUL","https://images.unsplash.com/photo-1567894340315-735d7c361db0?auto=format&fit=crop&w=800&q=85"],
+["A Diva Plus","MULHER • PLUS-SIZE • FORTE","https://images.unsplash.com/photo-1664893875908-a1e56db71082?auto=format&fit=crop&w=800&q=85"],
+["O Gigante Street","HOMEM • MUSCULOSO • STREET","https://images.unsplash.com/photo-1764698072833-dd137d82bbba?auto=format&fit=crop&w=800&q=85"],
+["A Executiva Bowl","MULHER • CURTO • LUXO","https://images.unsplash.com/photo-1682310934014-47fbe9d0f3d7?auto=format&fit=crop&w=800&q=85"]];
+export default function Avatars(){return <main className="library-shell"><nav className="profile-nav"><Link className="brand-mark" href="/"><span className="brand-icon">✦</span> AVATAR STUDIO <b>AI</b></Link><div><Link href="/studio">Meu perfil</Link><Link href="/videos">Vídeos</Link></div></nav><section className="library-head"><div className="section-kicker">🔥 BIBLIOTECA VIRAL</div><h1>Escolha um personagem.</h1><p>Curto, forte, engraçado, plus-size, estranho ou elegante. O avatar certo muda o vídeo.</p><div className="filter-pills"><span>Todos</span><span>🔥 Engraçados</span><span>💪 Fortes</span><span>✂️ Cabelo curto</span><span>👑 Femininos</span><span>🕺 Masculinos</span></div></section><section className="library-grid">{avatars.map(([name,tag,image])=><article className="avatar-card" key={name}><img src={image} alt={name}/><div className="avatar-shade"/><div className="avatar-info"><span>{tag}</span><h3>{name}</h3><Link href="/cadastro">Usar avatar →</Link></div></article>)}</section></main>}
