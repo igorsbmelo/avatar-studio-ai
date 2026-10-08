@@ -20,7 +20,8 @@ export default function Cadastro() {
   async function submit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); if(loading)return; setLoading(true); setMsg("");
     try {
-      const result=await timeout<{data:{session:any}|null;error:any}>(createClient().auth.signUp({email:email.trim(),password,options:{emailRedirectTo:SITE_URL+"/auth/confirm?next=/studio"}}),10000);\n      const {data,error}=result;
+      const signupPromise = createClient().auth.signUp({email:email.trim(),password,options:{emailRedirectTo:SITE_URL+"/auth/confirm?next=/studio"}}) as Promise<{data:{session:any}|null;error:any}>;
+      const {data,error}=await timeout(signupPromise,10000);
       if(error) throw error;
       if(data.session){window.location.href="/studio";return;}
       setMsg("Conta criada! Abra o e-mail de confirmação. No celular, o botão agora abrirá o Avatar Studio em vez de localhost.");
