@@ -23,7 +23,7 @@ export default function Cadastro() {
       const signupPromise = createClient().auth.signUp({email:email.trim(),password,options:{emailRedirectTo:SITE_URL+"/auth/confirm?next=/studio"}}) as Promise<{data:{session:any}|null;error:any}>;
       const {data,error}=await timeout(signupPromise,10000);
       if(error) throw error;
-      if(data.session){window.location.href="/studio";return;}
+      if(data?.session){window.location.href="/studio";return;}
       setMsg("Conta criada! Abra o e-mail de confirmação. No celular, o botão agora abrirá o Avatar Studio em vez de localhost.");
     } catch(error){setMsg(error instanceof Error?error.message:"Não foi possível criar sua conta.");}
     finally{setLoading(false);}
