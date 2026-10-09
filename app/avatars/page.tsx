@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "../../lib/supabase/browser";
 
-type Template=Record<string,unknown>;
+type Template=Record<string,any>;
 const filters=[["Todos",""],["😂 Absurdos","absurdo"],["✨ Elegantes","elegante"],["🔥 Engraçados","engraçado"],["💪 Fortes","forte"],["✂️ Cabelo curto","curto"],["👑 Femininos","mulher"],["🕺 Masculinos","homem"],["🧍 Plus-size","plus-size"],["⚡ Bowl Cut","bowl cut"]];
 function isAdult(t:Template){
  const age=String(t.apparent_age??"").toLowerCase();
@@ -15,7 +15,7 @@ function isAdult(t:Template){
  return true;
 }
 export default function Avatars(){
- const [templates,setTemplates]=useState<Template[]>([]),[filter,setFilter]=useState(""),[user,setUser]=useState<{id:string}|null>(null),[busy,setBusy]=useState(""),[msg,setMsg]=useState(""),[limit,setLimit]=useState(false);
+ const [templates,setTemplates]=useState<Template[]>([]),[filter,setFilter]=useState(""),[user,setUser]=useState<any>(null),[busy,setBusy]=useState(""),[msg,setMsg]=useState(""),[limit,setLimit]=useState(false);
  useEffect(()=>{(async()=>{const sb=createClient();const [{data:{user}},{data,error}]=await Promise.all([sb.auth.getUser(),sb.from("avatar_templates").select("*").eq("active",true).order("sort_order")]);if(!error)setTemplates((data||[]).filter(isAdult));setUser(user)})()},[]);
  const shown=useMemo(()=>templates.filter(t=>!filter||[t.gender,t.style,t.description,t.name,...(Array.isArray(t.tags)?t.tags:[])].join(" ").toLowerCase().includes(filter)),[templates,filter]);
  async function selectAvatar(t:Template){
