@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "../../lib/supabase/browser";
 
-type Template=Record<string,any>;
+type Template=Record<string,unknown>;
 const filters=[["Todos",""],["😂 Absurdos","absurdo"],["✨ Elegantes","elegante"],["🔥 Engraçados","engraçado"],["💪 Fortes","forte"],["✂️ Cabelo curto","curto"],["👑 Femininos","mulher"],["🕺 Masculinos","homem"],["🧍 Plus-size","plus-size"],["⚡ Bowl Cut","bowl cut"]];
 function isAdult(t:Template){
  const age=String(t.apparent_age??"").toLowerCase();
@@ -15,14 +15,14 @@ function isAdult(t:Template){
  return true;
 }
 export default function Avatars(){
- const [templates,setTemplates]=useState<Template[]>([]),[filter,setFilter]=useState(""),[user,setUser]=useState<any>(null),[busy,setBusy]=useState(""),[msg,setMsg]=useState(""),[limit,setLimit]=useState(false);
+ const [templates,setTemplates]=useState<Template[]>([]),[filter,setFilter]=useState(""),[user,setUser]=useState<{id:string}|null>(null),[busy,setBusy]=useState(""),[msg,setMsg]=useState(""),[limit,setLimit]=useState(false);
  useEffect(()=>{(async()=>{const sb=createClient();const [{data:{user}},{data,error}]=await Promise.all([sb.auth.getUser(),sb.from("avatar_templates").select("*").eq("active",true).order("sort_order")]);if(!error)setTemplates((data||[]).filter(isAdult));setUser(user)})()},[]);
  const shown=useMemo(()=>templates.filter(t=>!filter||[t.gender,t.style,t.description,t.name,...(Array.isArray(t.tags)?t.tags:[])].join(" ").toLowerCase().includes(filter)),[templates,filter]);
  async function selectAvatar(t:Template){
-  setBusy(t.id);setMsg("");setLimit(false);
+  const id=String(t.id);setBusy(id);setMsg("");setLimit(false);
   if(!user){window.location.href="/login?next=/avatars";return}
   const sb=createClient();
-  const {error}=await sb.from("avatars").insert({user_id:user.id,name:t.name,source_type:"digital",image_path:t.thumbnail_url,gender:t.gender,apparent_age:t.apparent_age,style:t.style,scene:t.scene,status:"draft",safety_status:"pending",appearance_config:{template_id:t.id,tags:t.tags||[],style:t.style}});
+  const {error}=await sb.from("avatars").insert({user_id:user.id,name:String(t.name||"Avatar adulto"),source_type:"digital",image_path:String(t.thumbnail_url||""),gender:String(t.gender||""),apparent_age:String(t.apparent_age||"Adulto"),style:String(t.style||""),scene:t.scene,status:"draft",safety_status:"pending",appearance_config:{template_id:id,tags:Array.isArray(t.tags)?t.tags:[],style:t.style}});
   if(error){const m=error.message||"Não foi possível usar este avatar.";setMsg(m);if(m.includes("AVATAR_LIMIT_REACHED")||m.includes("Limite de avatares"))setLimit(true)}else{window.location.href="/studio"}
   setBusy("");
  }
