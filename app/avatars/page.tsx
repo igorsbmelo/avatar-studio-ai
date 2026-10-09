@@ -40,7 +40,7 @@ function recommendationTokens(prompt:string){
  return Object.entries(normalized).filter(([,words])=>words.some(w=>p.includes(w))).map(([key])=>key);
 }
 export default function Avatars(){
- const [templates,setTemplates]=useState<Template[]>([]),[filter,setFilter]=useState(""),[user,setUser]=useState<any>(null),[busy,setBusy]=useState(""),[msg,setMsg]=useState(""),[limit,setLimit]=useState(false),[prompt,setPrompt]=useState(""),[appliedPrompt,setAppliedPrompt]=useState(false),[generatedImage,setGeneratedImage]=useState(""),[generating,setGenerating]=useState(false);
+ const [templates,setTemplates]=useState<Template[]>([]),[filter,setFilter]=useState(""),[user,setUser]=useState<any>(null),[busy,setBusy]=useState(""),[msg,setMsg]=useState(""),[limit,setLimit]=useState(false),[prompt,setPrompt]=useState(""),[appliedPrompt,setAppliedPrompt]=useState(false);
  useEffect(()=>{(async()=>{const sb=createClient();const [{data:{user}},{data,error}]=await Promise.all([sb.auth.getUser(),sb.from("avatar_templates").select("*").eq("active",true).order("sort_order")]);if(!error)setTemplates((data||[]).filter(isAdult));setUser(user)})()},[]);
  const aiTerms=useMemo(()=>appliedPrompt?recommendationTokens(prompt):[],[appliedPrompt,prompt]);
  const shown=useMemo(()=>{
@@ -56,24 +56,11 @@ export default function Avatars(){
   if(error){const m=error.message||"Não foi possível usar este avatar.";setMsg(m);if(m.includes("AVATAR_LIMIT_REACHED")||m.includes("Limite de avatares"))setLimit(true)}else{window.location.href="/studio"}
   setBusy("");
  }
- function askAssistant(){setFilter("");setAppliedPrompt(true);if(!recommendationTokens(prompt).length)setMsg("Sugestões do catálogo: tente incluir um estilo, como engraçado, elegante, musculoso, plus-size, cabelo curto ou bowl cut.");else setMsg("Sugestões do catálogo organizadas pelo seu pedido. Para criar uma imagem inédita, use o botão de geração por IA.") }
- async function generateAvatarImage(){
-  if(!user){window.location.href="/login?next=/avatars";return}
-  if(prompt.trim().length<8){setMsg("Descreva seu personagem com pelo menos 8 caracteres.");return}
-  setGenerating(true);setMsg("");setGeneratedImage("");
-  try{
-   const response=await fetch("/api/avatars/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:prompt.trim()})});
-   const data=await response.json();
-   if(!response.ok)throw new Error(data.error||"Não foi possível gerar a imagem.");
-   setGeneratedImage(data.image);
-   setMsg("Imagem criada pela IA. Esta etapa mostra uma prévia; salvar permanentemente no catálogo pessoal será conectado após configurar e validar o armazenamento.");
-  }catch(error){setMsg(error instanceof Error?error.message:"Falha na geração da imagem.");}
-  finally{setGenerating(false)}
- }
+ function askAssistant(){setFilter("");setAppliedPrompt(true);if(!recommendationTokens(prompt).length)setMsg("Sugestões do catálogo: tente incluir um estilo, como engraçado, elegante, musculoso, plus-size, cabelo curto ou bowl cut.");else setMsg("Sugestões gratuitas do catálogo organizadas pelo seu pedido. Nenhuma imagem é gerada nem chamada paga é feita.") }
  return <main className="library-shell">
   <nav className="profile-nav"><Link className="brand-logo-link" href="/"><img src="/logo.svg" alt="Avatar Studio AI" style={{width:180}}/></Link><div><Link href="/studio">Meu perfil</Link><Link href="/videos">Vídeos</Link></div></nav>
-  <section className="library-head"><div className="section-kicker">🔥 CATÁLOGO DE AVATARES ADULTOS</div><h1>Seu assistente criativo de avatares.</h1><p>Descreva o personagem que você imagina. O assistente organiza os modelos adultos do catálogo por estilo para ajudar você a começar a criar conteúdo para Reels e TikTok.</p>
-   <div className="assistant-panel"><label htmlFor="avatar-idea">O que você quer criar?</label><textarea id="avatar-idea" value={prompt} onChange={e=>{setPrompt(e.target.value);setAppliedPrompt(false)}} placeholder="Ex.: homem negro, musculoso, cabelo engraçado, visual street para vídeos de comédia no TikTok."/><div className="assistant-actions"><button className="hero-primary" onClick={askAssistant}>✦ Encontrar no catálogo</button><button className="hero-secondary" onClick={generateAvatarImage} disabled={generating}>{generating?"Gerando imagem…":"✨ Gerar imagem com IA"}</button><Link className="hero-secondary" href="/videos">Escolher vídeos →</Link></div><small>“Encontrar no catálogo” recomenda modelos existentes. “Gerar imagem com IA” cria uma imagem inédita e exige a chave OpenAI configurada no servidor.</small></div>{generatedImage&&<div className="assistant-panel generated-avatar-preview"><h2>Seu avatar gerado</h2><img src={generatedImage} alt="Prévia do avatar gerado por IA" style={{display:"block",width:"min(100%,420px)",borderRadius:18,margin:"16px auto"}}/><button className="hero-secondary" onClick={generateAvatarImage} disabled={generating}>{generating?"Gerando…":"Gerar novamente"}</button></div>}
+  <section className="library-head"><div className="section-kicker">🔥 CATÁLOGO DE AVATARES ADULTOS</div><h1>Seu assistente criativo de avatares.</h1><p>Descreva o personagem que você imagina. O assistente gratuito organiza os modelos adultos do catálogo por estilo para ajudar você a começar a criar conteúdo para Reels e TikTok.</p>
+   <div className="assistant-panel"><label htmlFor="avatar-idea">O que você quer criar?</label><textarea id="avatar-idea" value={prompt} onChange={e=>{setPrompt(e.target.value);setAppliedPrompt(false)}} placeholder="Ex.: homem negro, musculoso, cabelo engraçado, visual street para vídeos de comédia no TikTok."/><div className="assistant-actions"><button className="hero-primary" onClick={askAssistant}>✦ Encontrar no catálogo</button><Link className="hero-secondary" href="/videos">Escolher vídeos →</Link></div><small>Recomendação local por palavras-chave: usa modelos já existentes no catálogo, sem API paga de geração de imagens. A busca não cria uma imagem inédita.</small></div>
    <div className="filter-pills">{filters.map(([label,value])=><button key={label} className={filter===value?"active":""} onClick={()=>{setFilter(value);setAppliedPrompt(false)}}>{label}</button>)}</div></section>
   {msg&&<div className="catalog-alert" role="status"><b>{limit?"Limite do plano":"Assistente"}</b><span>{msg}</span>{limit&&<Link className="hero-primary" href="/studio/creditos">Ver opções →</Link>}</div>}
   {appliedPrompt&&aiTerms.length>0&&<p style={{maxWidth:1150,margin:"0 auto",padding:"8px 5vw",color:"#b9f3ff"}}>✦ {shown.length} sugestão(ões) encontradas para seu pedido.</p>}
