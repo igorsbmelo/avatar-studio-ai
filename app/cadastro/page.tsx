@@ -11,7 +11,7 @@ const visualImages = [
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://avatar-studio-ai-pemu.vercel.app";
 
-function timeout<T>(promise: Promise<T>, ms: number) {
+function timeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return Promise.race([promise, new Promise<never>((_, reject) => setTimeout(() => reject(new Error("A conexão demorou mais que o esperado. Tente novamente.")), ms))]);
 }
 
@@ -21,7 +21,7 @@ export default function Cadastro() {
     e.preventDefault(); if(loading)return; setLoading(true); setMsg("");
     try {
       const signupPromise = createClient().auth.signUp({email:email.trim(),password,options:{emailRedirectTo:SITE_URL+"/auth/confirm?next=/studio"}});
-      const result = await timeout(signupPromise,10000);
+      const result = await timeout<Awaited<typeof signupPromise>>(signupPromise,10000);
       if(result.error) throw result.error;
       if(result.data?.session){window.location.href="/studio";return;}
       setMsg("Conta criada! Abra o e-mail de confirmação. No celular, o botão agora abrirá o Avatar Studio em vez de localhost.");
