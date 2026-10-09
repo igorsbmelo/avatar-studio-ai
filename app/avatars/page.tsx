@@ -10,7 +10,7 @@ export default function Avatars(){
  const [templates,setTemplates]=useState<Template[]>([]),[filter,setFilter]=useState(""),[user,setUser]=useState<any>(null),[busy,setBusy]=useState(""),[msg,setMsg]=useState(""),[limit,setLimit]=useState(false);
  useEffect(()=>{(async()=>{const sb=createClient();const [{data:{user}},{data,error}]=await Promise.all([sb.auth.getUser(),sb.from("avatar_templates").select("*").eq("active",true).order("sort_order")]);if(!error)setTemplates(data||[]);setUser(user)})()},[]);
  const shown=useMemo(()=>templates.filter(t=>!filter||[t.gender,t.style,t.description,...(Array.isArray(t.tags)?t.tags:[])].join(" ").toLowerCase().includes(filter.toLowerCase())),[templates,filter]);
- async function useAvatar(t:Template){
+ async function selectAvatar(t:Template){
   setBusy(t.id);setMsg("");setLimit(false);
   if(!user){window.location.href="/login?next=/avatars";return}
   const sb=createClient();
@@ -22,6 +22,6 @@ export default function Avatars(){
   <nav className="profile-nav"><Link className="brand-logo-link" href="/"><img src="/logo.svg" alt="Avatar Studio AI" style={{width:180}}/></Link><div><Link href="/studio">Meu perfil</Link><Link href="/videos">Vídeos</Link></div></nav>
   <section className="library-head"><div className="section-kicker">🔥 100 AVATARES</div><h1>Veja todos. Escolha qualquer um.</h1><p>Os 100 personagens ficam visíveis para todos os planos. O que muda é quantos você pode colocar no seu Studio. Ao atingir o limite, você pode comprar +1 avatar por R$ 5.</p><div className="filter-pills">{filters.map(([label,value])=><button key={label} className={filter===value?"active":""} onClick={()=>setFilter(value)}>{label}</button>)}</div></section>
   {msg&&<div className="catalog-alert"><b>Limite do plano atingido.</b><span>{msg}</span>{limit&&<Link className="hero-primary" href="/studio/creditos">Comprar +1 avatar — R$ 5 →</Link>}</div>}
-  <section className="library-grid avatar-catalog-grid">{shown.map(t=><article className="avatar-card catalog-avatar-card" key={t.id}><img src={t.thumbnail_url} alt={t.name}/><div className="avatar-shade"/><div className="avatar-info"><span>{t.gender} • {t.style} • {t.tags?.[2]||"Viral"}</span><h3>{t.name}</h3><button disabled={busy===t.id} onClick={()=>useAvatar(t)}>{busy===t.id?"Salvando…":"Usar avatar →"}</button></div></article>)}</section>
+  <section className="library-grid avatar-catalog-grid">{shown.map(t=><article className="avatar-card catalog-avatar-card" key={t.id}><img src={t.thumbnail_url} alt={t.name}/><div className="avatar-shade"/><div className="avatar-info"><span>{t.gender} • {t.style} • {t.tags?.[2]||"Viral"}</span><h3>{t.name}</h3><button disabled={busy===t.id} onClick={()=>selectAvatar(t)}>{busy===t.id?"Salvando…":"Usar avatar →"}</button></div></article>)}</section>
  </main>
 }
